@@ -14,6 +14,8 @@ import json
 
 infile = 'in/weixin_samp.txt'
 outfile = 'out/matrix.txt'
+top_num = 10
+word_num_per_topic = 10
 
 stopkeys = [line.strip() for line in open('in/stopwords.txt', encoding='utf-8').readlines()]
 # print(stopkeys)
@@ -42,10 +44,10 @@ print("ok.")
 
 
 print("creating lda models...")
-lda = models.ldamodel.LdaModel(corpus = corpus, id2word = dic, num_topics = 10, alpha = 'auto')
+lda = models.ldamodel.LdaModel(corpus = corpus, id2word = dic, num_topics = top_num, alpha = 'auto')
 print("ok.")
 
-topics_matrix = lda.show_topics(formatted=True, num_words=10)
+topics_matrix = lda.show_topics(formatted=True, num_words=word_num_per_topic)
 
 writer = open(outfile,'w',encoding='utf-8')
 for topic in topics_matrix:
