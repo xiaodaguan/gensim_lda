@@ -12,7 +12,8 @@ import sys
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 import json
 
-
+infile = 'in/weixin_samp.txt'
+outfile = 'out/matrix.txt'
 
 stopkeys = [line.strip() for line in open('in/stopwords.txt', encoding='utf-8').readlines()]
 # print(stopkeys)
@@ -20,7 +21,7 @@ stopkeys = [line.strip() for line in open('in/stopwords.txt', encoding='utf-8').
 print('cutting...')
 
 docs=[]
-file = open('in/weixin_samp.txt',mode='r', encoding='utf-8')
+file = open(infile,mode='r', encoding='utf-8')
 for doc in file:
     # print(doc)
     docs.append(doc)
@@ -46,7 +47,11 @@ print("ok.")
 
 topics_matrix = lda.show_topics(formatted=True, num_words=10)
 
+writer = open(outfile,'w',encoding='utf-8')
 for topic in topics_matrix:
     print(str(topic))
+    writer.write(str(topic)+'\r\n')
+writer.close()
+
 
 print("all done.")
